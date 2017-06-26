@@ -1586,14 +1586,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccb0059c66d333459e1d60a9c16fa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
-  bullet_force: 10000
   horizontal_shoot_point: {fileID: 53957695}
   player_num: 2
   velocity: 6000
-  shoot_cooldown: 0.25
   dash_cooldown: 0.25
-  bullet_life: 4
   dash_force: 1.1
   dash_time: 0.01
   dash_mask:
@@ -2092,14 +2088,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccb0059c66d333459e1d60a9c16fa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
-  bullet_force: 10000
   horizontal_shoot_point: {fileID: 53957695}
   player_num: 3
   velocity: 6000
-  shoot_cooldown: 0.25
   dash_cooldown: 0.25
-  bullet_life: 4
   dash_force: 1.1
   dash_time: 0.01
   dash_mask:
@@ -2516,6 +2508,7 @@ GameObject:
   - component: {fileID: 1344131874}
   - component: {fileID: 1344131875}
   - component: {fileID: 1344131876}
+  - component: {fileID: 1344131877}
   m_Layer: 8
   m_Name: Krapo_02
   m_TagString: Player
@@ -2599,14 +2592,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccb0059c66d333459e1d60a9c16fa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
-  bullet_force: 10000
   horizontal_shoot_point: {fileID: 53957695}
   player_num: 1
   velocity: 6000
-  shoot_cooldown: 0.25
   dash_cooldown: 0.25
-  bullet_life: 4
   dash_force: 1.1
   dash_time: 0.01
   dash_mask:
@@ -2640,6 +2629,21 @@ CapsuleCollider:
   m_Height: 47
   m_Direction: 1
   m_Center: {x: 0, y: 24, z: 0}
+--- !u!114 &1344131877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1344131870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac5d6bac8609d64a8a620942945b6e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet_force: 10
+  bullet: {fileID: 1372369854418296, guid: 7e5cd40b04b2cfa41907b990dbf2b39b, type: 2}
+  shoot_cooldown: 0.25
+  bullet_life: 10
 --- !u!1001 &1345213878
 Prefab:
   m_ObjectHideFlags: 0
