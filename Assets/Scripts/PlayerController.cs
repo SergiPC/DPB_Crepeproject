@@ -167,13 +167,18 @@ public class PlayerController : MonoBehaviour {
         shoot_tmp.x *= x;
         shoot_tmp.z *= z;
 
-        Collider[] col = Physics.OverlapCapsule(transform.position + shoot_tmp, transform.position + shoot_tmp + (dir.normalized * (8000*dash_time)), 25, dash_mask, QueryTriggerInteraction.Ignore);
+        Collider[] col = Physics.OverlapCapsule(transform.position + shoot_tmp, transform.position + shoot_tmp + (dir.normalized * (7200*dash_time*dash_force)), 25, dash_mask, QueryTriggerInteraction.Ignore);
         if (col.Length > 0)
         {
-            body.velocity = Vector3.zero;
-            Vector3 hit_point = col[0].ClosestPoint(transform.position + shoot_tmp);
+            Vector3 hit_point = col[0].ClosestPointOnBounds(transform.position + shoot_tmp);
             hit_point.y = transform.position.y;
-            body.MovePosition(hit_point);
+            if (Vector3.Distance(hit_point, transform.position) > 40)
+            {
+                body.velocity = Vector3.zero;
+                body.MovePosition(hit_point);
+            }
+
+            Debug.Log("touching");
         }
         else
         {
