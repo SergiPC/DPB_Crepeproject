@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 41471013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 53957696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -602,7 +602,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 349186335}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1510,7 +1510,7 @@ GameObject:
   - component: {fileID: 1037015304}
   - component: {fileID: 1037015303}
   - component: {fileID: 1037015302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Francis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1551,7 +1551,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037015300}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 40
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037015300}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ccb0059c66d333459e1d60a9c16fa1c, type: 3}
   m_Name: 
@@ -1573,7 +1573,8 @@ MonoBehaviour:
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
   bullet_force: 5000
   horizontal_shoot_point: {fileID: 349186334}
-  velocity: 25
+  player_num: 2
+  velocity: 5000
 --- !u!114 &1037015305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2007,7 +2008,7 @@ GameObject:
   - component: {fileID: 1199540160}
   - component: {fileID: 1199540159}
   - component: {fileID: 1199540158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Krapo_NoOutline_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2048,7 +2049,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1199540156}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 40
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -2062,15 +2063,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1199540156}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ccb0059c66d333459e1d60a9c16fa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
-  bullet_force: 5000
+  bullet_force: 10000
   horizontal_shoot_point: {fileID: 41471012}
-  velocity: 25
+  player_num: 3
+  velocity: 5000
 --- !u!114 &1199540161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,7 +2484,7 @@ GameObject:
   - component: {fileID: 1344131874}
   - component: {fileID: 1344131875}
   - component: {fileID: 1344131876}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Krapo_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2568,7 +2570,8 @@ MonoBehaviour:
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
   bullet_force: 5000
   horizontal_shoot_point: {fileID: 53957695}
-  velocity: 25
+  player_num: 1
+  velocity: 5000
 --- !u!54 &1344131875
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2576,7 +2579,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1344131870}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 40
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
