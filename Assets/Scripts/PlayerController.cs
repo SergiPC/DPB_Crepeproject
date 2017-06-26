@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-
     public GameObject bullet;
     public float bullet_force;
     public GameObject horizontal_shoot_point;
     public int player_num = 1;
     public int velocity = 4;
-
+    public float cooldown = 0.25f;
+    public float bullet_life = 10.0f;
+    public float current_speed = 0.0f; 
     Rigidbody body;
 
     private Vector3 shoot_point;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     string vertical = "Vertical";
     string shoot_bullet = "Fire1";
     float slowliness = 1.0f;
+    float current_cooldown = 0.0f;
 
     // Use this for initialization
     void Start ()
@@ -51,35 +53,55 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.CompareTag("Bullet"))
+        {
+            slowliness = 0.6f;
+            Invoke("ResetSlowliness", 5f);
+        }
+    }
+    void FixedUpdate()
     {
         float h = Input.GetAxis(horizontal);
         float v = Input.GetAxis(vertical);
         Vector3 vel = new Vector3(h, 0, v);
-        vel = vel.normalized * velocity * Time.deltaTime * slowliness;
-        Debug.Log("horizontal: " + h + "Vertical: " + v);
-        di_x = (h > 0) ? false : true;
-        di_z = (v > 0) ? false : true;
+        vel = vel * velocity * Time.deltaTime * slowliness;
+
+        if (Mathf.Abs(h) > 0.01f)
+            di_x = (h > 0) ? false : true;
+        if (Mathf.Abs(v) > 0.01f)
+            di_z = (v > 0) ? false : true;
 
         GetComponent<SpriteRenderer>().flipX = di_x;
         body.velocity = vel;
+        if(vel.magnitude == 0)
+        {
+            
+        }
+         
     }
-
     void Update()
     {
-        if(Input.GetButtonDown(shoot_bullet))
+        if (cooldown <= current_cooldown)
         {
-            float h = Input.GetAxis(horizontal);
-            float v = Input.GetAxis(vertical);
-            Vector3 vel = new Vector3(Mathf.Abs(h), 0, Mathf.Abs(v));
+            if (Input.GetButtonDown(shoot_bullet))
+            {
+                float h = Input.GetAxis(horizontal);
+                float v = Input.GetAxis(vertical);
 
-            if (vel.sqrMagnitude > 0.2 )
-                ShootBullet(vel.normalized);
-            else
-                ShootBullet(transform.right);
+                Vector3 dir = new Vector3(Mathf.Abs(h), 0, Mathf.Abs(v));
+
+                if (dir.sqrMagnitude > 0.2)
+                    ShootBullet(dir.normalized);
+                else
+                    ShootBullet(transform.right);
+                current_cooldown = 0.0f;
+            }
         }
+        else
+            current_cooldown += Time.deltaTime;
     }
 
     void ShootBullet(Vector3 dir)
@@ -101,6 +123,11 @@ public class PlayerController : MonoBehaviour {
         dir.z *= z;
         GameObject bull_tmp = Instantiate(bullet, transform.position + shoot_tmp, Quaternion.identity);
         bull_tmp.GetComponent<Rigidbody>().AddForce(dir  * bullet_force);
-        Destroy(bull_tmp, 10.0f);
+        Destroy(bull_tmp, bullet_life);
+    }
+
+    void ResetSlowliness()
+    {
+        slowliness = 1.0f;
     }
 }

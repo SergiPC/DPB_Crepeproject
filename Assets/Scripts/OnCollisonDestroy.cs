@@ -10,6 +10,7 @@ public class OnCollisonDestroy : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         Invoke("DestroyMe", TimeToDestroy);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     void DestroyMe()
