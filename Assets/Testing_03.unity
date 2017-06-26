@@ -179,12 +179,6 @@ Prefab:
       propertyPath: m_Name
       value: Terra_01
       objectReference: {fileID: 0}
-    - target: {fileID: 65297569024935230, guid: ad02c2f58358ec44ab2d2ade98aaa890,
-        type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 8acca9367b79a5742a64e472340920d9,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad02c2f58358ec44ab2d2ade98aaa890, type: 2}
   m_IsPrefabParent: 0
@@ -1597,9 +1591,14 @@ MonoBehaviour:
   horizontal_shoot_point: {fileID: 349186334}
   player_num: 2
   velocity: 5000
-  cooldown: 0.25
+  shoot_cooldown: 0.25
+  dash_cooldown: 0.25
   bullet_life: 10
-  current_speed: 0
+  dash_force: 4
+  dash_time: 4
+  dash_mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1037015305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,9 +2097,14 @@ MonoBehaviour:
   horizontal_shoot_point: {fileID: 41471012}
   player_num: 3
   velocity: 5000
-  cooldown: 0.25
+  shoot_cooldown: 0.25
+  dash_cooldown: 0.25
   bullet_life: 10
-  current_speed: 0
+  dash_force: 4
+  dash_time: 4
+  dash_mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1199540161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2600,9 +2604,14 @@ MonoBehaviour:
   horizontal_shoot_point: {fileID: 53957695}
   player_num: 1
   velocity: 6000
-  cooldown: 0.25
+  shoot_cooldown: 0.25
+  dash_cooldown: 0.25
   bullet_life: 4
-  current_speed: 0
+  dash_force: 1.1
+  dash_time: 0.01
+  dash_mask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!54 &1344131875
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3944,6 +3953,10 @@ Prefab:
       value: 
       objectReference: {fileID: 13400000, guid: 8acca9367b79a5742a64e472340920d9,
         type: 2}
+    - target: {fileID: 1409129509634108, guid: ad02c2f58358ec44ab2d2ade98aaa890, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad02c2f58358ec44ab2d2ade98aaa890, type: 2}
   m_IsPrefabParent: 0

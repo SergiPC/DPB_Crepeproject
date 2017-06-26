@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -9,9 +10,12 @@ public class PlayerController : MonoBehaviour {
     public GameObject horizontal_shoot_point;
     public int player_num = 1;
     public int velocity = 4;
-    public float cooldown = 0.25f;
+    public float shoot_cooldown = 0.25f;
+    public float dash_cooldown = 0.25f;
     public float bullet_life = 10.0f;
-    public float current_speed = 0.0f; 
+    public float dash_force = 4f;
+    public float dash_time = 4f;
+    public LayerMask dash_mask;
     Rigidbody body;
 
     private Vector3 shoot_point;
@@ -21,7 +25,9 @@ public class PlayerController : MonoBehaviour {
     string vertical = "Vertical";
     string shoot_bullet = "Fire1";
     float slowliness = 1.0f;
-    float current_cooldown = 0.0f;
+    float shoot_current_cooldown = 0.0f;
+    float dash_current_cooldown = 0.0f;
+    bool dashing = false;
 
     // Use this for initialization
     void Start ()
@@ -66,8 +72,6 @@ public class PlayerController : MonoBehaviour {
     {
         float h = Input.GetAxis(horizontal);
         float v = Input.GetAxis(vertical);
-        Vector3 vel = new Vector3(h, 0, v);
-        vel = vel * velocity * Time.deltaTime * slowliness;
 
         if (Mathf.Abs(h) > 0.01f)
             di_x = (h > 0) ? false : true;
@@ -75,16 +79,22 @@ public class PlayerController : MonoBehaviour {
             di_z = (v > 0) ? false : true;
 
         GetComponent<SpriteRenderer>().flipX = di_x;
-        body.velocity = vel;
-        if(vel.magnitude == 0)
+        Vector3 vel = new Vector3(h, 0, v);
+        if (dashing == false)
         {
             
+            vel = vel * velocity * Time.deltaTime * slowliness;
+            body.velocity = vel;
         }
-         
+        else
+        {
+            Dash(vel);
+        }
     }
     void Update()
     {
-        if (cooldown <= current_cooldown)
+        //SHOOT -------------------------------------
+        if (shoot_cooldown <= shoot_current_cooldown)
         {
             if (Input.GetButtonDown(shoot_bullet))
             {
@@ -97,11 +107,24 @@ public class PlayerController : MonoBehaviour {
                     ShootBullet(dir.normalized);
                 else
                     ShootBullet(transform.right);
-                current_cooldown = 0.0f;
+                shoot_current_cooldown = 0.0f;
             }
         }
         else
-            current_cooldown += Time.deltaTime;
+            shoot_current_cooldown += Time.deltaTime;
+
+        //DASH -------------------------------------
+
+        if (dash_cooldown <= dash_current_cooldown && dashing == false)
+        {
+            if (Input.GetButtonDown(shoot_bullet))
+            {
+                dashing = true;
+                dash_current_cooldown = 0.0f;
+            }
+        }
+        else if(dashing == false)
+            dash_current_cooldown += Time.deltaTime;
     }
 
     void ShootBullet(Vector3 dir)
@@ -124,6 +147,44 @@ public class PlayerController : MonoBehaviour {
         GameObject bull_tmp = Instantiate(bullet, transform.position + shoot_tmp, Quaternion.identity);
         bull_tmp.GetComponent<Rigidbody>().AddForce(dir  * bullet_force);
         Destroy(bull_tmp, bullet_life);
+    }
+
+
+    void Dash(Vector3 dir)
+    {
+        dash_current_cooldown += Time.fixedDeltaTime;
+
+        int x = di_x ? -1 : 1;
+        int z = di_z ? -1 : 1;
+
+        Vector3 shoot_tmp = shoot_point;
+
+        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.z))
+        {
+            shoot_tmp.z = shoot_tmp.x;
+            shoot_tmp.x = 0;
+        }
+        shoot_tmp.x *= x;
+        shoot_tmp.z *= z;
+
+        Collider[] col = Physics.OverlapCapsule(transform.position + shoot_tmp, transform.position + shoot_tmp + (dir.normalized * (8000*dash_time)), 25, dash_mask, QueryTriggerInteraction.Ignore);
+        if (col.Length > 0)
+        {
+            body.velocity = Vector3.zero;
+            Vector3 hit_point = col[0].ClosestPoint(transform.position + shoot_tmp);
+            hit_point.y = transform.position.y;
+            body.MovePosition(hit_point);
+        }
+        else
+        {
+            body.velocity = dir.normalized * dash_force * velocity;
+        }
+        if (dash_time <= dash_current_cooldown)
+        {
+            dashing = false;
+            dash_current_cooldown = 0.0f;
+        }
+
     }
 
     void ResetSlowliness()
