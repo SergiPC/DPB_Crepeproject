@@ -6,11 +6,26 @@ public class OnCollisonDestroy : MonoBehaviour
 {
     public float TimeToDestroy = 1.0f;
     // Use this for initialization
-
+    public int touches_to_die = 2;
+    public float bullet_speed = 6f;
+    Rigidbody bod = null;
+    int touch_num = 0;
+    void Start()
+    {
+        bod = GetComponent<Rigidbody>();
+    }
     void OnCollisionEnter(Collision collision)
     {
-        Invoke("DestroyMe", TimeToDestroy);
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        if (collision.gameObject.CompareTag("Player"))
+            bod.velocity = Vector3.zero;
+        touch_num++;
+        if (touch_num >= touches_to_die)
+            Invoke("DestroyMe", TimeToDestroy);
+    }
+
+    void FixedUpdate()
+    {
+        bod.velocity = bod.velocity.normalized * bullet_speed;
     }
 
     void DestroyMe()

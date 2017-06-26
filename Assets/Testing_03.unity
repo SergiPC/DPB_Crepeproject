@@ -1588,17 +1588,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
   bullet_force: 10000
-  horizontal_shoot_point: {fileID: 349186334}
+  horizontal_shoot_point: {fileID: 53957695}
   player_num: 2
-  velocity: 5000
+  velocity: 6000
   shoot_cooldown: 0.25
   dash_cooldown: 0.25
-  bullet_life: 10
-  dash_force: 4
-  dash_time: 4
+  bullet_life: 4
+  dash_force: 1.1
+  dash_time: 0.01
   dash_mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!114 &1037015305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2094,17 +2094,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
   bullet_force: 10000
-  horizontal_shoot_point: {fileID: 41471012}
+  horizontal_shoot_point: {fileID: 53957695}
   player_num: 3
-  velocity: 5000
+  velocity: 6000
   shoot_cooldown: 0.25
   dash_cooldown: 0.25
-  bullet_life: 10
-  dash_force: 4
-  dash_time: 4
+  bullet_life: 4
+  dash_force: 1.1
+  dash_time: 0.01
   dash_mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!114 &1199540161
 MonoBehaviour:
   m_ObjectHideFlags: 0
