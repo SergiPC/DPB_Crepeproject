@@ -21,7 +21,9 @@ public class TurretBeh : MonoBehaviour {
     {
 		if(col.gameObject.CompareTag("Player"))
         {
-            players_inside.Add(col.gameObject);
+            
+            if (!players_inside.Contains(col.gameObject))
+                players_inside.Add(col.gameObject);
         }
 	}
 

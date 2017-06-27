@@ -10,7 +10,7 @@ public class OnCollisonDestroy : MonoBehaviour
     public float bullet_speed = 6f;
     Rigidbody bod = null;
     int touch_num = 0;
-
+    public int force = 1;
     void Start()
     {
         bod = GetComponent<Rigidbody>();
@@ -22,6 +22,7 @@ public class OnCollisonDestroy : MonoBehaviour
         {
             bod.velocity = Vector3.zero;
             Invoke("DestroyMe", TimeToDestroy);
+            GetComponent<Collider>().enabled = false;
         }
         else
         {

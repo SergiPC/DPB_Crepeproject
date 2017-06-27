@@ -34,9 +34,10 @@ public class PlayerController : MonoBehaviour {
     float slowliness = 1.0f;
 
     float dash_current_cooldown = 0.0f;
-    bool pushed = false;
+    float last_time_pushed = 0.0f;
     Player_M_states current_M_state;
-
+    Vector3 to_draw1;
+    Vector3 to_draw2;
     // Use this for initialization
     void Awake ()
     {
@@ -79,10 +80,10 @@ public class PlayerController : MonoBehaviour {
 
         if(col.gameObject.CompareTag("ShotGun"))
         {
-            int force = 1;
             Vector3 direction = col.transform.position;
             direction.y = 0;
             direction -= transform.position;
+            int force = col.gameObject.GetComponent<OnCollisonDestroy>().force;
             PushMe(-direction.normalized, force);
         }
     }
@@ -110,12 +111,14 @@ public class PlayerController : MonoBehaviour {
                 Dash(vel);
                 break;
             case Player_M_states.PUSHED:
-                if (body.velocity.magnitude < 10f)
+                if (body.velocity.magnitude < 20f)
                     current_M_state = Player_M_states.NORMAL;
                 break;
             case Player_M_states.ROOTED:
                 break;
+
         }
+        last_time_pushed += Time.fixedDeltaTime;
     }
 
     void Update()
@@ -151,23 +154,22 @@ public class PlayerController : MonoBehaviour {
         shoot_tmp.x *= x;
         shoot_tmp.z *= z;
 
-        Collider[] col = Physics.OverlapCapsule(transform.position + shoot_tmp, transform.position + shoot_tmp + (dir.normalized * (7200*dash_time*dash_force)), 25, dash_mask, QueryTriggerInteraction.Ignore);
-        if (col.Length > 0)
-        {
-            Vector3 hit_point = col[0].ClosestPointOnBounds(transform.position + shoot_tmp);
-            hit_point.y = transform.position.y;
-            if (Vector3.Distance(hit_point, transform.position) > 40)
-            {
-                body.velocity = Vector3.zero;
-                body.MovePosition(hit_point);
-            }
+        Vector3 speed = dir.normalized * dash_force * velocity * Time.fixedDeltaTime;
+        RaycastHit hit;
 
-            Debug.Log("touching");
+        Debug.DrawLine(transform.position + Vector3.up * 20, transform.position + dir);
+        to_draw1 = transform.position + Vector3.up * 20;
+        to_draw2 = new Vector3(100*x, 25, 100*z);
+        /*if (Physics.BoxCast(transform.position + Vector3.up*20, new Vector3(100*x,25,100*z), dir,out hit,Quaternion.identity, 150f, dash_mask, QueryTriggerInteraction.Ignore))
+        {
+            //body.velocity = speed * hit.distance;
+            Debug.Log("touching" + hit.collider.name);
         }
         else
-        {
-            body.velocity = dir.normalized * dash_force * velocity;
-        }
+        {*/
+            body.velocity = dir.normalized * dash_force * velocity * Time.fixedDeltaTime;
+        //}
+
         if (dash_time <= dash_current_cooldown)
         {
             current_M_state = Player_M_states.NORMAL;
@@ -183,8 +185,12 @@ public class PlayerController : MonoBehaviour {
 
     public void PushMe(Vector3 direction,int push_force)
     {
-        body.AddForce(direction * 100000 * push_force);
-        current_M_state = Player_M_states.PUSHED;
+        if(current_M_state == Player_M_states.NORMAL && last_time_pushed > 0.2f)
+        {
+            body.AddForce(direction * 100000 * push_force);
+            current_M_state = Player_M_states.PUSHED;
+            last_time_pushed = 0.0f;
+        }
     }
 
     public string GetHorizontal()
@@ -208,5 +214,11 @@ public class PlayerController : MonoBehaviour {
     public bool GetDirection_z()
     {
         return di_z;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.5F);
+        Gizmos.DrawCube(to_draw1, to_draw2);
     }
 }

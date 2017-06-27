@@ -9,7 +9,13 @@ public class ShotGun_shoot : MonoBehaviour
     public GameObject bullet;
     public float shoot_cooldown = 0.25f;
     public float bullet_life = 10.0f;
+    public float time_between_bullets = 0.01f;
+    public float degrees_of_direction = 20f;
+    public int bullet_num = 3;
+
     float shoot_current_cooldown = 0.0f;
+    float timer_between_bullets = 0f;
+    float real_timer_between_bullets = 0f;
     string horizontal = "Horizontal";
     string vertical = "Vertical";
     string shoot_bullet = "Fire1";
@@ -17,6 +23,10 @@ public class ShotGun_shoot : MonoBehaviour
     Vector3 shoot_point;
     bool di_x = false;
     bool di_z = false;
+    bool shooting = false;
+    int bullets_shoot = 0;
+
+
     void Start()
     {
         player_controller = GetComponent<PlayerController>();
@@ -24,29 +34,65 @@ public class ShotGun_shoot : MonoBehaviour
         horizontal = player_controller.GetHorizontal();
         vertical = player_controller.GetVertical();
         shoot_bullet = player_controller.GetShootButton();
+        real_timer_between_bullets = Random.Range(0, time_between_bullets);
     }
 
     void Update()
     {
-        //SHOOT -------------------------------------
-        if (shoot_cooldown <= shoot_current_cooldown)
+        if (shooting)
         {
-            if (Input.GetButtonDown(shoot_bullet))
+            if (real_timer_between_bullets <= timer_between_bullets)
             {
                 float h = Input.GetAxis(horizontal);
                 float v = Input.GetAxis(vertical);
 
                 Vector3 dir = new Vector3(Mathf.Abs(h), 0, Mathf.Abs(v));
 
-                if (dir.sqrMagnitude > 0.2)
-                    ShootBullet(dir.normalized);
-                else
-                    ShootBullet(transform.right);
-                shoot_current_cooldown = 0.0f;
+                if (dir.sqrMagnitude < 0.2)
+                    dir = transform.right;
+
+                float new_degrees_of_direction = Random.Range(-degrees_of_direction, degrees_of_direction);
+                new_degrees_of_direction *= Mathf.Deg2Rad;
+                Vector3 new_dir = dir;
+                float cos = Mathf.Cos(new_degrees_of_direction);
+                float sin = Mathf.Sin(new_degrees_of_direction);
+                new_dir.x = dir.x * cos + dir.z * sin;
+                new_dir.z = -dir.x * sin + dir.z * cos;
+
+                ShootBullet(new_dir.normalized);
+
+                bullets_shoot++;
+
+                if(bullets_shoot >= bullet_num)
+                {
+                    shoot_current_cooldown = 0.0f;
+                    bullets_shoot = 0;
+                    shooting = false;
+                }
+
+                timer_between_bullets = 0.0f;
+                real_timer_between_bullets = Random.Range(0, time_between_bullets);
             }
+            else
+                timer_between_bullets += Time.deltaTime;
+
+
         }
         else
-            shoot_current_cooldown += Time.deltaTime;
+        {
+     //SHOOT -------------------------------------
+            if (shoot_cooldown <= shoot_current_cooldown)
+            {
+                if (Input.GetButtonDown(shoot_bullet))
+                {
+                    shooting = true;
+                }
+            }
+            else
+                shoot_current_cooldown += Time.deltaTime;
+
+        }
+       
     }
 
     void ShootBullet(Vector3 dir)
