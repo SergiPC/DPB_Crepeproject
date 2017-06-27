@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-enum Player_M_states
+public enum Player_M_states
 {
     NORMAL,
     DASHING,
+    SLEEPED,
     PUSHED,
     ROOTED
 }
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
     float dash_current_cooldown = 0.0f;
     float last_time_pushed = 0.0f;
-    Player_M_states current_M_state;
+    public Player_M_states current_M_state;
     Vector3 to_draw1;
     Vector3 to_draw2;
     // Use this for initialization
@@ -155,20 +156,9 @@ public class PlayerController : MonoBehaviour {
         shoot_tmp.z *= z;
 
         Vector3 speed = dir.normalized * dash_force * velocity * Time.fixedDeltaTime;
-        RaycastHit hit;
 
-        Debug.DrawLine(transform.position + Vector3.up * 20, transform.position + dir);
-        to_draw1 = transform.position + Vector3.up * 20;
-        to_draw2 = new Vector3(100*x, 25, 100*z);
-        /*if (Physics.BoxCast(transform.position + Vector3.up*20, new Vector3(100*x,25,100*z), dir,out hit,Quaternion.identity, 150f, dash_mask, QueryTriggerInteraction.Ignore))
-        {
-            //body.velocity = speed * hit.distance;
-            Debug.Log("touching" + hit.collider.name);
-        }
-        else
-        {*/
-            body.velocity = dir.normalized * dash_force * velocity * Time.fixedDeltaTime;
-        //}
+        body.velocity = dir.normalized * dash_force * velocity * Time.fixedDeltaTime;
+
 
         if (dash_time <= dash_current_cooldown)
         {
@@ -214,11 +204,5 @@ public class PlayerController : MonoBehaviour {
     public bool GetDirection_z()
     {
         return di_z;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.5F);
-        Gizmos.DrawCube(to_draw1, to_draw2);
     }
 }

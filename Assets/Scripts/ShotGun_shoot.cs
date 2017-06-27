@@ -81,7 +81,7 @@ public class ShotGun_shoot : MonoBehaviour
         else
         {
      //SHOOT -------------------------------------
-            if (shoot_cooldown <= shoot_current_cooldown)
+            if (shoot_cooldown <= shoot_current_cooldown && player_controller.current_M_state != Player_M_states.ROOTED)
             {
                 if (Input.GetButtonDown(shoot_bullet))
                 {

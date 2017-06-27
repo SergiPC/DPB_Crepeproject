@@ -589,6 +589,48 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!1 &234616359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 234616360}
+  - component: {fileID: 234616361}
+  m_Layer: 0
+  m_Name: Dash_collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &234616360
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 234616359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1344131871}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &234616361
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 234616359}
+  m_Material: {fileID: 13400000, guid: 8acca9367b79a5742a64e472340920d9, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 25
+  m_Height: 47
+  m_Direction: 1
+  m_Center: {x: 0, y: 24, z: 0}
 --- !u!4 &288260741 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4470542771499578, guid: ad02c2f58358ec44ab2d2ade98aaa890,
@@ -2527,6 +2569,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 53957696}
+  - {fileID: 234616360}
   m_Father: {fileID: 385269202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2596,8 +2639,8 @@ MonoBehaviour:
   player_num: 1
   velocity: 6000
   dash_cooldown: 0.25
-  dash_force: 1.1
-  dash_time: 0.01
+  dash_force: 5
+  dash_time: 0.3
   dash_mask:
     serializedVersion: 2
     m_Bits: 1
@@ -2615,7 +2658,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &1344131876
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2644,6 +2687,9 @@ MonoBehaviour:
   bullet: {fileID: 1372369854418296, guid: 7e5cd40b04b2cfa41907b990dbf2b39b, type: 2}
   shoot_cooldown: 0.25
   bullet_life: 10
+  time_between_bullets: 0.01
+  degrees_of_direction: 20
+  bullet_num: 3
 --- !u!1001 &1345213878
 Prefab:
   m_ObjectHideFlags: 0
