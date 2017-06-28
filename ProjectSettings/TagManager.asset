@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - ShotGun
+  - FuriHability
   layers:
   - Default
   - TransparentFX
