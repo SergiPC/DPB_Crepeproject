@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamepadInput;
 
 [RequireComponent(typeof(PlayerController))]
 public class ShotGun_shoot : MonoBehaviour
@@ -12,7 +13,8 @@ public class ShotGun_shoot : MonoBehaviour
     public float time_between_bullets = 0.01f;
     public float degrees_of_direction = 20f;
     public int bullet_num = 3;
-
+    public GamePad.Button shotgun_button = GamePad.Button.A;
+    public KeyCode shotgun_test_shoot_button = KeyCode.X;
     float shoot_current_cooldown = 0.0f;
     float timer_between_bullets = 0f;
     float real_timer_between_bullets = 0f;
@@ -20,6 +22,7 @@ public class ShotGun_shoot : MonoBehaviour
     string vertical = "Vertical";
     string shoot_bullet = "Fire1";
     PlayerController player_controller;
+    GamePad.Index player_num = 0;
     Vector3 shoot_point;
     bool di_x = false;
     bool di_z = false;
@@ -35,6 +38,7 @@ public class ShotGun_shoot : MonoBehaviour
         vertical = player_controller.GetVertical();
         shoot_bullet = player_controller.GetShootButton();
         real_timer_between_bullets = Random.Range(0, time_between_bullets);
+        player_num = player_controller.player_num;
     }
 
     void Update()
@@ -43,8 +47,9 @@ public class ShotGun_shoot : MonoBehaviour
         {
             if (real_timer_between_bullets <= timer_between_bullets)
             {
-                float h = Input.GetAxis(horizontal);
-                float v = Input.GetAxis(vertical);
+                Vector2 inp = GamePad.GetAxis(GamePad.Axis.LeftStick, (GamePad.Index)player_num, false);
+                float h = inp.x;
+                float v = inp.y;
 
                 Vector3 dir = new Vector3(Mathf.Abs(h), 0, Mathf.Abs(v));
 
@@ -83,7 +88,7 @@ public class ShotGun_shoot : MonoBehaviour
      //SHOOT -------------------------------------
             if (shoot_cooldown <= shoot_current_cooldown && player_controller.current_M_state != Player_M_states.ROOTED)
             {
-                if (Input.GetButtonDown(shoot_bullet))
+                if (GamePad.GetButtonDown(shotgun_button, player_num) || Input.GetKeyDown(shotgun_test_shoot_button))
                 {
                     shooting = true;
                 }

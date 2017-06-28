@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using GamepadInput;
 
 public enum Player_M_states
 {
@@ -17,13 +18,15 @@ public enum Player_M_states
 public class PlayerController : MonoBehaviour {
 
     public GameObject horizontal_shoot_point;
-    public int player_num = 1;
+    public GamePad.Index player_num = GamePad.Index.One;
     public int velocity = 4;
 
     public float dash_cooldown = 0.25f;
     public float dash_force = 4f;
     public float dash_time = 4f;
     public LayerMask dash_mask;
+    public GamePad.Button dash_button = GamePad.Button.X;
+    public KeyCode dash_test_button = KeyCode.Z;
     Rigidbody body;
 
     private Vector3 shoot_point;
@@ -49,30 +52,6 @@ public class PlayerController : MonoBehaviour {
         body = GetComponent<Rigidbody>();
         curr_col = GetComponent<Collider>();
         shoot_point = horizontal_shoot_point.transform.localPosition;
-
-        switch(player_num)
-        {
-            case 1:
-                horizontal = "Horizontal";
-                vertical = "Vertical";
-                shoot_bullet = "Fire1";
-                break;
-            case 2:
-                horizontal = "Horizontal_2";
-                vertical = "Vertical_2";
-                shoot_bullet = "Fire2";
-                break;
-            case 3:
-                horizontal = "Horizontal_3";
-                vertical = "Vertical_3";
-                shoot_bullet = "Fire3";
-                break;
-            case 4:
-                horizontal = "Horizontal_4";
-                vertical = "Vertical_4";
-                shoot_bullet = "Fire4";
-                break;
-        }
 	}
 
     void OnCollisionEnter(Collision col)
@@ -103,8 +82,9 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        float h = Input.GetAxis(horizontal);
-        float v = Input.GetAxis(vertical);
+        Vector2 inp = GamePad.GetAxis(GamePad.Axis.LeftStick,player_num,false);
+        float h = inp.x;
+        float v = inp.y;
 
         if (Mathf.Abs(h) > 0.01f)
             di_x = (h > 0) ? false : true;
@@ -150,7 +130,7 @@ public class PlayerController : MonoBehaviour {
         //DASH -------------------------------------
         if (dash_cooldown <= dash_current_cooldown && current_M_state == Player_M_states.NORMAL)
         {
-            if (Input.GetButtonDown(shoot_bullet))
+            if (GamePad.GetButtonDown(dash_button, player_num) || Input.GetKeyDown(dash_test_button))
             {
                 current_M_state = Player_M_states.DASHING;
                 curr_col.enabled = false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamepadInput;
 
 [RequireComponent(typeof(PlayerController))]
 public class NormalShoot : MonoBehaviour {
@@ -9,12 +10,15 @@ public class NormalShoot : MonoBehaviour {
     public GameObject bullet;
     public float shoot_cooldown = 0.25f;
     public float bullet_life = 10.0f;
+    public GamePad.Button normal_shoot = GamePad.Button.A;
+    public KeyCode normal_test_shoot_button = KeyCode.X;
     float shoot_current_cooldown = 0.0f;
     string horizontal = "Horizontal";
     string vertical = "Vertical";
     string shoot_bullet = "Fire1";
     PlayerController player_controller;
     Vector3 shoot_point;
+    GamePad.Index player_num = GamePad.Index.One;
     bool di_x = false;
     bool di_z = false;
     void Start ()
@@ -24,6 +28,7 @@ public class NormalShoot : MonoBehaviour {
         horizontal = player_controller.GetHorizontal();
         vertical = player_controller.GetVertical();
         shoot_bullet = player_controller.GetShootButton();
+        player_num = player_controller.player_num;
     }
 	
 	void Update ()
@@ -31,10 +36,11 @@ public class NormalShoot : MonoBehaviour {
         //SHOOT -------------------------------------
         if (shoot_cooldown <= shoot_current_cooldown && player_controller.current_M_state != Player_M_states.ROOTED)
         {
-            if (Input.GetButtonDown(shoot_bullet))
+            if (GamePad.GetButtonDown(normal_shoot, player_num) || Input.GetKeyDown(normal_test_shoot_button))
             {
-                float h = Input.GetAxis(horizontal);
-                float v = Input.GetAxis(vertical);
+                Vector2 inp = GamePad.GetAxis(GamePad.Axis.LeftStick, player_num, false);
+                float h = inp.x;
+                float v = inp.y;
 
                 Vector3 dir = new Vector3(Mathf.Abs(h), 0, Mathf.Abs(v));
 
