@@ -9,7 +9,8 @@ public enum Player_M_states
     DASHING,
     SLEEPED,
     PUSHED,
-    ROOTED
+    ROOTED,
+    STUNED
 }
 
 [RequireComponent(typeof(Rigidbody))]
@@ -37,8 +38,11 @@ public class PlayerController : MonoBehaviour {
     float dash_current_cooldown = 0.0f;
     float last_time_pushed = 0.0f;
     public Player_M_states current_M_state;
-    Vector3 to_draw1;
-    Vector3 to_draw2;
+
+    //Root/stun timers
+    float root_time = 0f;
+    float current_root_time = 0f;
+
     // Use this for initialization
     void Awake ()
     {
@@ -89,6 +93,14 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.CompareTag("FuriHability"))
+        {
+            RootMe(2);
+        }
+    }
+
     void FixedUpdate()
     {
         float h = Input.GetAxis(horizontal);
@@ -99,7 +111,9 @@ public class PlayerController : MonoBehaviour {
         if (Mathf.Abs(v) > 0.01f)
             di_z = (v > 0) ? false : true;
 
-        GetComponent<SpriteRenderer>().flipX = di_x;
+        if(current_M_state != Player_M_states.ROOTED)
+            GetComponent<SpriteRenderer>().flipX = di_x;
+
         Vector3 vel = new Vector3(h, 0, v);
 
         switch(current_M_state)
@@ -116,6 +130,15 @@ public class PlayerController : MonoBehaviour {
                     current_M_state = Player_M_states.NORMAL;
                 break;
             case Player_M_states.ROOTED:
+               
+            case Player_M_states.STUNED:
+
+                if (root_time <= current_root_time)
+                {
+                    current_M_state = Player_M_states.NORMAL;
+                }
+                else
+                    current_root_time += Time.fixedDeltaTime;
                 break;
 
         }
@@ -181,6 +204,18 @@ public class PlayerController : MonoBehaviour {
             current_M_state = Player_M_states.PUSHED;
             last_time_pushed = 0.0f;
         }
+    }
+
+    public void RootMe(float time)
+    {
+        if(current_M_state == Player_M_states.NORMAL || current_M_state == Player_M_states.PUSHED)
+        {
+            body.velocity = Vector3.zero;
+            current_M_state = Player_M_states.ROOTED;
+            root_time = time;
+            current_root_time = 0f;
+        }
+
     }
 
     public string GetHorizontal()
