@@ -21,6 +21,7 @@ public class OnCollisonDestroy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             bod.velocity = Vector3.zero;
+            bullet_speed = 0;
             Invoke("DestroyMe", TimeToDestroy);
             GetComponent<Collider>().enabled = false;
         }

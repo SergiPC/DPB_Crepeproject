@@ -198,6 +198,25 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public void SlowMe(float slow, float time_slowed)
+    {
+        if(current_M_state == Player_M_states.NORMAL)
+        {
+            float new_slowliness = 1 - slow;
+            if (slowliness < new_slowliness)
+            {
+                Invoke("ResetSlowliness", time_slowed);
+            }
+            else
+            {
+                slowliness = new_slowliness;
+                Invoke("ResetSlowliness", time_slowed);
+            }
+        }
+
+        
+    }
+
     public string GetHorizontal()
     {
         return horizontal;
