@@ -1473,6 +1473,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4321006445469094}
+  - component: {fileID: 65183905681377662}
   m_Layer: 0
   m_Name: Scene_end1
   m_TagString: Untagged
@@ -3109,6 +3110,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 36, y: 144, z: 1}
   m_Center: {x: 0, y: 72, z: -0.5}
+--- !u!65 &65183905681377662
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1965614715014676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 648, y: 142, z: 373.18}
+  m_Center: {x: 4.3, y: 72, z: 186}
 --- !u!65 &65250141894911528
 BoxCollider:
   m_ObjectHideFlags: 1
