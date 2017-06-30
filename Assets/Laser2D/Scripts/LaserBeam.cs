@@ -61,6 +61,7 @@ public class LaserBeam : MonoBehaviour {
 		lineRenderer.sortingOrder = 5; // tthe laser should be visible top of the enemy layer
 
 		theAnimator = GetComponent <Animator> (); // get the animator 
+        enableFiring();
     }
 
     /// <summary>
@@ -77,6 +78,7 @@ public class LaserBeam : MonoBehaviour {
     void deactiveLaser() {
         theAnimator.SetBool("startLaser", false);
         laserOn = false;
+        Invoke("enableFiring", rayDuration + 2f);
     }
 
 
@@ -182,7 +184,7 @@ public class LaserBeam : MonoBehaviour {
 
     private void FireLaser() {
         // switching laser and player power
-        if (Input.GetMouseButtonDown(1) && canFire == true) {
+        if (canFire == true) {
             theAnimator.SetBool("startLaser", true);
             canFire = false;
             Invoke("enableFiring", rayDuration + 2f);

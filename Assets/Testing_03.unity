@@ -747,26 +747,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 12032386, guid: 206c310cbe1b12e4bafb67f6192d3f5c, type: 2}
-      propertyPath: m_Positions.Array.data[1].y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12032386, guid: 206c310cbe1b12e4bafb67f6192d3f5c, type: 2}
-      propertyPath: m_Positions.Array.data[0].y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12032386, guid: 206c310cbe1b12e4bafb67f6192d3f5c, type: 2}
-      propertyPath: m_Positions.Array.data[1].z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12032386, guid: 206c310cbe1b12e4bafb67f6192d3f5c, type: 2}
-      propertyPath: m_Positions.Array.data[0].z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11442556, guid: 206c310cbe1b12e4bafb67f6192d3f5c, type: 2}
-      propertyPath: slow_effect
-      value: 0.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 206c310cbe1b12e4bafb67f6192d3f5c, type: 2}
   m_IsPrefabParent: 0
