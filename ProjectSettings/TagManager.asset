@@ -7,6 +7,8 @@ TagManager:
   - Bullet
   - ShotGun
   - FuriHability
+  - Enemy
+  - Spikes
   layers:
   - Default
   - TransparentFX
