@@ -29,7 +29,6 @@ public class ShotGun_shoot : MonoBehaviour
     bool shooting = false;
     int bullets_shoot = 0;
 
-
     void Start()
     {
         player_controller = GetComponent<PlayerController>();
@@ -86,7 +85,7 @@ public class ShotGun_shoot : MonoBehaviour
         else
         {
      //SHOOT -------------------------------------
-            if (shoot_cooldown <= shoot_current_cooldown && player_controller.current_M_state != Player_M_states.ROOTED)
+            if (shoot_cooldown <= shoot_current_cooldown && player_controller.AbilitiesUp())
             {
                 if (GamePad.GetButtonDown(shotgun_button, player_num) || Input.GetKeyDown(shotgun_test_shoot_button))
                 {

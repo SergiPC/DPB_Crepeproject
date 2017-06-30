@@ -9,6 +9,7 @@ TagManager:
   - FuriHability
   - Enemy
   - Spikes
+  - SlowBullet
   layers:
   - Default
   - TransparentFX

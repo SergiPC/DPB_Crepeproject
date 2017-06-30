@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask dash_mask;
     public GamePad.Button dash_button = GamePad.Button.X;
     public KeyCode dash_test_button = KeyCode.Z;
+    bool can_throw_abilities = true;
     Rigidbody body;
 
     private Vector3 shoot_point;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 
     //Root/stun timers
     float root_time = 0f;
+    float sleep_time = 0f;
     float current_root_time = 0f;
 
     // Use this for initialization
@@ -58,17 +60,26 @@ public class PlayerController : MonoBehaviour {
     {
         if(col.gameObject.CompareTag("Bullet"))
         {
-            slowliness = 0.6f;
+            OnCollisonDestroy c = col.gameObject.GetComponent<OnCollisonDestroy>();
+            slowliness = 1 - c.force;
+            sleep_time = c.slow_time;
+            current_M_state = Player_M_states.SLEEPED;
             Invoke("ResetSlowliness", 5f);
         }
 
-        if(col.gameObject.CompareTag("ShotGun"))
+        else if(col.gameObject.CompareTag("ShotGun"))
         {
             Vector3 direction = col.transform.position;
             direction.y = 0;
             direction -= transform.position;
             int force = col.gameObject.GetComponent<OnCollisonDestroy>().force;
             PushMe(-direction.normalized, force);
+        }
+
+        else if (col.gameObject.CompareTag("SlowBullet"))
+        {
+            sleep_time = col.gameObject.GetComponent<OnCollisonDestroy>().slow_time;
+            current_M_state = Player_M_states.SLEEPED;
         }
     }
 
@@ -91,7 +102,7 @@ public class PlayerController : MonoBehaviour {
         if (Mathf.Abs(v) > 0.01f)
             di_z = (v > 0) ? false : true;
 
-        if(current_M_state != Player_M_states.ROOTED)
+        if(AbilitiesUp())
             GetComponent<SpriteRenderer>().flipX = di_x;
 
         Vector3 vel = new Vector3(h, 0, v);
@@ -101,21 +112,36 @@ public class PlayerController : MonoBehaviour {
             case Player_M_states.NORMAL:
                 vel = vel * velocity * Time.deltaTime * slowliness;
                 body.velocity = vel;
+                can_throw_abilities = true;
                 break;
             case Player_M_states.DASHING:
                 Dash(vel);
+                can_throw_abilities = false;
                 break;
             case Player_M_states.PUSHED:
                 if (body.velocity.magnitude < 20f)
                     current_M_state = Player_M_states.NORMAL;
+                can_throw_abilities = false;
+                break;
+            case Player_M_states.SLEEPED:
+                Sleeped(vel);
                 break;
             case Player_M_states.ROOTED:
-               
-            case Player_M_states.STUNED:
-
+                can_throw_abilities = true;
                 if (root_time <= current_root_time)
                 {
                     current_M_state = Player_M_states.NORMAL;
+                    current_root_time = 0f;
+                }
+                else
+                    current_root_time += Time.fixedDeltaTime;
+                break;
+            case Player_M_states.STUNED:
+                can_throw_abilities = false;
+                if (root_time <= current_root_time)
+                {
+                    current_M_state = Player_M_states.NORMAL;
+                    current_root_time = 0f;
                 }
                 else
                     current_root_time += Time.fixedDeltaTime;
@@ -128,7 +154,7 @@ public class PlayerController : MonoBehaviour {
     void Update()
     { 
         //DASH -------------------------------------
-        if (dash_cooldown <= dash_current_cooldown && current_M_state == Player_M_states.NORMAL)
+        if (dash_cooldown <= dash_current_cooldown && AbilitiesUp())
         {
             if (GamePad.GetButtonDown(dash_button, player_num) || Input.GetKeyDown(dash_test_button))
             {
@@ -170,7 +196,31 @@ public class PlayerController : MonoBehaviour {
             dash_current_cooldown = 0.0f;
         }
     }
+    void Sleeped(Vector3 vel)
+    {
+        if(sleep_time <= current_root_time)
+        {
+            slowliness = 0f;
+            current_M_state = Player_M_states.NORMAL;
+            current_root_time = 0f;
+            ResetSlowliness();
+        }
+        else
+        {
+            if(current_root_time < 1)
+            {
+                slowliness = 1 - current_root_time;
+                can_throw_abilities = true;
+            }
+            else
+                can_throw_abilities = false;
 
+            current_root_time += Time.fixedDeltaTime;
+        }
+
+        vel = vel * velocity * Time.deltaTime * slowliness;
+        body.velocity = vel;
+    }
     void ResetSlowliness()
     {
         slowliness = 1.0f;
@@ -213,8 +263,6 @@ public class PlayerController : MonoBehaviour {
                 Invoke("ResetSlowliness", time_slowed);
             }
         }
-
-        
     }
 
     public string GetHorizontal()
@@ -238,5 +286,10 @@ public class PlayerController : MonoBehaviour {
     public bool GetDirection_z()
     {
         return di_z;
+    }
+
+    public bool AbilitiesUp()
+    {
+        return can_throw_abilities;
     }
 }

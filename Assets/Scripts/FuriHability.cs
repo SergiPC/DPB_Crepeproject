@@ -53,7 +53,7 @@ public class FuriHability : MonoBehaviour {
             else
             {
                 current_active_time += Time.deltaTime;
-                if(player_controller.current_M_state == Player_M_states.ROOTED)
+                if(player_controller.current_M_state == Player_M_states.STUNED || player_controller.current_M_state == Player_M_states.SLEEPED)
                 {
                     DeactivateFuri();
                 }
@@ -62,7 +62,7 @@ public class FuriHability : MonoBehaviour {
         }
         else
         {
-                if (cooldown <= current_cooldwon && player_controller.current_M_state != Player_M_states.ROOTED)
+                if (cooldown <= current_cooldwon && player_controller.AbilitiesUp())
                 {
                     if (GamePad.GetButtonDown(furi_button, player_num) || Input.GetKeyDown(furi_test_button))
                 {

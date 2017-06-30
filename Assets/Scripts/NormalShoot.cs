@@ -34,7 +34,7 @@ public class NormalShoot : MonoBehaviour {
 	void Update ()
     {
         //SHOOT -------------------------------------
-        if (shoot_cooldown <= shoot_current_cooldown && player_controller.current_M_state != Player_M_states.ROOTED)
+        if (shoot_cooldown <= shoot_current_cooldown && player_controller.AbilitiesUp())
         {
             if (GamePad.GetButtonDown(normal_shoot, player_num) || Input.GetKeyDown(normal_test_shoot_button))
             {
