@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 54218185939219608}
   - component: {fileID: 114890995603543302}
   - component: {fileID: 135203203144112168}
+  - component: {fileID: 95818397328930874}
   m_Layer: 9
   m_Name: Bullet
   m_TagString: Bullet
@@ -58,6 +59,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &95818397328930874
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1372369854418296}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 38943ebf39186114d90f9f870d56465a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114890995603543302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,6 +91,7 @@ MonoBehaviour:
   touches_to_die: 2
   bullet_speed: 500
   force: 1
+  slow_time: 2
 --- !u!135 &135203203144112168
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -117,7 +136,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 983d239ac52736242a5f8542894f20a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e90f2d96148287b4199bb51d9a1b7762, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
