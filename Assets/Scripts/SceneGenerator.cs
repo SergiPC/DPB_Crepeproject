@@ -12,7 +12,7 @@ public class SceneGenerator : MonoBehaviour {
 
     float x_size = 0f;
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         GameObject go = Instantiate(beggining, transform);
 
@@ -31,9 +31,4 @@ public class SceneGenerator : MonoBehaviour {
        Instantiate(ending, pos, transform.rotation);
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

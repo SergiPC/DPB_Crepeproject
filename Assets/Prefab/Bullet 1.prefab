@@ -73,6 +73,7 @@ MonoBehaviour:
   touches_to_die: 1
   bullet_speed: 500
   force: 15
+  slow_time: 2
 --- !u!135 &135203203144112168
 SphereCollider:
   m_ObjectHideFlags: 1

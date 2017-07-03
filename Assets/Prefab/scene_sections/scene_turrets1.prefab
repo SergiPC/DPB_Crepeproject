@@ -965,7 +965,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4881298293186030}
   - component: {fileID: 33353939677760406}
-  - component: {fileID: 135218157795445610}
   - component: {fileID: 23075196958243904}
   - component: {fileID: 114193787455119998}
   - component: {fileID: 135854611584522652}
@@ -3504,6 +3503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
+  players_inside: []
   cooldown: 1
   bullet_life: 4
   bullet_force: 10000
@@ -3673,6 +3673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
+  players_inside: []
   cooldown: 1
   bullet_life: 4
   bullet_force: 10000
@@ -3764,18 +3765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d3c7af68d8fed47b939fe26c84f46e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135218157795445610
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1610647217055310}
-  m_Material: {fileID: 13400000, guid: 9b6f2015b6a2a6342a2185d4da53ef40, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135817488807005482
 SphereCollider:
   m_ObjectHideFlags: 1

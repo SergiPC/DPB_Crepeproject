@@ -5,7 +5,8 @@ using UnityEngine;
 public class TurretBeh : MonoBehaviour {
 
     public GameObject bullet;
-    List<GameObject> players_inside;
+    public List<GameObject> players_inside;
+    public List<GameObject> players_to_remove;
     public float cooldown = 1f;
     public float bullet_life = 4.0f;
     public float bullet_force = 4.0f;
@@ -19,19 +20,31 @@ public class TurretBeh : MonoBehaviour {
 	// Use this for initialization
 	void OnTriggerEnter(Collider col)
     {
-		if(col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player"))
         {
-            
-            if (!players_inside.Contains(col.gameObject))
-                players_inside.Add(col.gameObject);
+            GameObject go = col.gameObject;
+            if (!players_inside.Contains(go))
+                players_inside.Add(go);
         }
-	}
+    }
+
+    void OnTriggerStay(Collider col)
+    {
+        if(col.gameObject.CompareTag("Player"))
+        {
+            GameObject go = col.gameObject;
+            if (!players_inside.Contains(go))
+                players_inside.Add(go);
+        }
+    }
 
     void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            players_inside.Remove(col.gameObject);
+            GameObject go = col.gameObject;
+            if (players_inside.Contains(go))
+                players_inside.Remove(go);
         }
     }
 
@@ -51,6 +64,11 @@ public class TurretBeh : MonoBehaviour {
                     min_distance = dist_tmp;
                     current_target = i;
                 }
+                if (dist_tmp > GetComponent<Collider>().bounds.size.x)
+                {
+                    players_to_remove.Add(g);
+                }
+
                 i++;
             }
 
@@ -65,6 +83,13 @@ public class TurretBeh : MonoBehaviour {
         }
         else
             current_cooldown += Time.deltaTime;
+
+        foreach (GameObject g in players_to_remove)
+        {
+            players_inside.Remove(g);
+        }
+
+        players_to_remove.Clear();
     }
 
     void ShootBullet(Vector3 dir)

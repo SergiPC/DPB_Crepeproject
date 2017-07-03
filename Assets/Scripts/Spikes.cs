@@ -23,7 +23,7 @@ public class Spikes : MonoBehaviour {
     {
         if(col.gameObject.CompareTag("Player"))
         {
-            col.gameObject.GetComponent<PlayerController>().SlowMe(0.8f, 0.5f);
+            col.gameObject.GetComponent<PlayerController>().RootMe(0.5f);
         }
     }
 	// Update is called once per frame
