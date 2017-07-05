@@ -57,7 +57,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!95 &95818397328930874
 Animator:
@@ -90,7 +90,7 @@ MonoBehaviour:
   TimeToDestroy: 1
   touches_to_die: 2
   bullet_speed: 500
-  force: 1
+  force: 0.3
   slow_time: 2
 --- !u!135 &135203203144112168
 SphereCollider:
@@ -98,7 +98,7 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372369854418296}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: db7bb4713c227884f92269d676e23df1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

@@ -11,7 +11,8 @@ public enum Player_M_states
     SLEEPED,
     PUSHED,
     ROOTED,
-    STUNED
+    STUNED,
+    PAUSED
 }
 
 [RequireComponent(typeof(Rigidbody))]
@@ -62,9 +63,8 @@ public class PlayerController : MonoBehaviour {
         {
             OnCollisonDestroy c = col.gameObject.GetComponent<OnCollisonDestroy>();
             slowliness = 1 - c.force;
-            sleep_time = c.slow_time;
-            current_M_state = Player_M_states.SLEEPED;
-            Invoke("ResetSlowliness", 5f);
+            current_M_state = Player_M_states.NORMAL;
+            Invoke("ResetSlowliness", c.slow_time);
         }
 
         else if(col.gameObject.CompareTag("ShotGun"))
@@ -72,14 +72,17 @@ public class PlayerController : MonoBehaviour {
             Vector3 direction = col.transform.position;
             direction.y = 0;
             direction -= transform.position;
-            int force = col.gameObject.GetComponent<OnCollisonDestroy>().force;
-            PushMe(-direction.normalized, force);
+            float force = col.gameObject.GetComponent<OnCollisonDestroy>().force;
+            PushMe(-direction.normalized, (int)force);
         }
 
         else if (col.gameObject.CompareTag("SlowBullet"))
         {
-            sleep_time = col.gameObject.GetComponent<OnCollisonDestroy>().slow_time;
+            OnCollisonDestroy c = col.gameObject.GetComponent<OnCollisonDestroy>();
+            slowliness = 1 - c.force;
+            sleep_time = c.slow_time;
             current_M_state = Player_M_states.SLEEPED;
+            Invoke("ResetSlowliness", 5f);
         }
     }
 
@@ -146,9 +149,14 @@ public class PlayerController : MonoBehaviour {
                 else
                     current_root_time += Time.fixedDeltaTime;
                 break;
+            case Player_M_states.PAUSED:
+                can_throw_abilities = false;
+                break;
 
         }
         last_time_pushed += Time.fixedDeltaTime;
+
+
     }
 
     void Update()
@@ -228,7 +236,7 @@ public class PlayerController : MonoBehaviour {
 
     public void PushMe(Vector3 direction,int push_force)
     {
-        if(current_M_state == Player_M_states.NORMAL && last_time_pushed > 0.2f)
+        if(last_time_pushed > 0.2f)
         {
             body.AddForce(direction * 100000 * push_force);
             current_M_state = Player_M_states.PUSHED;
@@ -292,4 +300,10 @@ public class PlayerController : MonoBehaviour {
     {
         return can_throw_abilities;
     }
+
+    void OnBecameInvisible()
+    {
+        LevelManager.current.AddDeadPlayer(gameObject);
+    }
+
 }

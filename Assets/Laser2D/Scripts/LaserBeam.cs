@@ -78,6 +78,7 @@ public class LaserBeam : MonoBehaviour {
     void deactiveLaser() {
         theAnimator.SetBool("startLaser", false);
         laserOn = false;
+        currentLerpTime = 0f;
         Invoke("enableFiring", rayDuration + 2f);
     }
 
@@ -148,7 +149,6 @@ public class LaserBeam : MonoBehaviour {
             }
         }
         else if (laserOn == false) {
-
             if (hitParticle != null) {
                 Destroy(hitParticle);
             }
@@ -171,7 +171,7 @@ public class LaserBeam : MonoBehaviour {
     private void laserNotColGlow() {
         //print("laser dont hit");
         if (!laserGlow.gameObject.activeInHierarchy) {
-            //laserGlow.gameObject.SetActive(true);
+            laserGlow.gameObject.SetActive(true);
         }
 
         float perc = _lerpLaser();
@@ -187,7 +187,6 @@ public class LaserBeam : MonoBehaviour {
         if (canFire == true) {
             theAnimator.SetBool("startLaser", true);
             canFire = false;
-            Invoke("enableFiring", rayDuration + 2f);
         }
     }
 
@@ -247,6 +246,4 @@ public class LaserBeam : MonoBehaviour {
          }
 
     }
-
-    
 }

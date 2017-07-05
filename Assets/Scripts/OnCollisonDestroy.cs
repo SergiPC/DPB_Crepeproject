@@ -11,7 +11,7 @@ public class OnCollisonDestroy : MonoBehaviour
     Rigidbody bod = null;
     int touch_num = 0;
     [Tooltip("For slow bullets number between 0 and 1, for shotguns any number")]
-    public int force = 1;
+    public float force = 1;
     public float slow_time = 2f;
     void Start()
     {
