@@ -878,7 +878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet_force: 10
-  bullet: {fileID: 1372369854418296, guid: ec4e6272ced81464f9b8143ab6bb06e1, type: 2}
+  bullet: {fileID: 1232393457090932, guid: a4193b3480f98ef45a1b093213a79759, type: 2}
   shoot_cooldown: 0.25
   bullet_life: 0.5
   time_between_bullets: 0.01
@@ -934,7 +934,7 @@ MonoBehaviour:
   - {fileID: 1877021268694360, guid: a39ba5952bc84fa43ade00208c55f6ea, type: 2}
   - {fileID: 1529372407057842, guid: 84b15e590a4ca5d48a4e35f9936c5989, type: 2}
   - {fileID: 1037134945438514, guid: 7f64a5f41402a6640974447e13401e67, type: 2}
-  number_of_sections: 10
+  number_of_sections: 1
 --- !u!4 &1353127082
 Transform:
   m_ObjectHideFlags: 0
@@ -948,59 +948,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1394597399
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1394597401}
-  - component: {fileID: 1394597400}
-  - component: {fileID: 1394597402}
-  m_Layer: 0
-  m_Name: FinishZone
-  m_TagString: FinishZone
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &1394597400
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1394597399}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 250, y: 142, z: 373.18}
-  m_Center: {x: 4.3, y: 72, z: 186}
---- !u!4 &1394597401
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1394597399}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 195, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1394597402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1394597399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55aa9ad65e6006c408ef9ec3971ba15f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1410358407
 GameObject:
   m_ObjectHideFlags: 0
