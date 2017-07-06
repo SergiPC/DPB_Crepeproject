@@ -1140,6 +1140,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1394503499239722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4257838684754174}
+  - component: {fileID: 65122232103090806}
+  - component: {fileID: 114344150348617946}
+  m_Layer: 0
+  m_Name: FinishZone
+  m_TagString: FinishZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1400328367033358
 GameObject:
   m_ObjectHideFlags: 1
@@ -3723,6 +3740,19 @@ Transform:
   m_Father: {fileID: 4926572943426928}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4257838684754174
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1394503499239722}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 195, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4321006445469094}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4260329306855434
 Transform:
   m_ObjectHideFlags: 1
@@ -3957,6 +3987,7 @@ Transform:
   - {fileID: 4667099094920878}
   - {fileID: 4587351355639726}
   - {fileID: 4274722588608422}
+  - {fileID: 4257838684754174}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5831,6 +5862,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 36, y: 144, z: 1}
   m_Center: {x: 0, y: 72, z: -0.5}
+--- !u!65 &65122232103090806
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1394503499239722}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 142, z: 373.18}
+  m_Center: {x: 4.3, y: 72, z: 186}
 --- !u!65 &65137806059251730
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -6692,6 +6735,17 @@ MonoBehaviour:
   cooldown: 1
   bullet_life: 4
   bullet_force: 10000
+--- !u!114 &114344150348617946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1394503499239722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55aa9ad65e6006c408ef9ec3971ba15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114366912248334694
 MonoBehaviour:
   m_ObjectHideFlags: 1

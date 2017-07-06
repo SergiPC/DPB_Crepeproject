@@ -5,7 +5,7 @@ using UnityEngine;
 public class FinishZone : MonoBehaviour {
 
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.CompareTag("Player"))
         {

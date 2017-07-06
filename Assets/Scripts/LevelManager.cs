@@ -7,6 +7,7 @@ public enum IN_GAME_STATUS
     STARTING,
     IN_GAME,
     PAUSE,
+    FINISHING,
     WINNING,
     LOSING
 }
@@ -15,7 +16,7 @@ public enum IN_GAME_STATUS
 public class LevelManager : MonoBehaviour {
 
     public int player_num;
-    GameObject[] players_in_game;
+    List<GameObject> players_in_game;
     IN_GAME_STATUS current_status;
     List<GameObject> dead_players;
     List<GameObject> winners;
@@ -34,27 +35,80 @@ public class LevelManager : MonoBehaviour {
     void Start ()
     {
         current_status = IN_GAME_STATUS.STARTING;
-        players_in_game = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] g = GameObject.FindGameObjectsWithTag("Player");
+        players_in_game = new List<GameObject>(g);
         dead_players = new List<GameObject>();
         winners = new List<GameObject>();
     }
 
-    public void ChangeStatus(IN_GAME_STATUS new_status)
+
+    void Update()
     {
 
+    }
+
+    public void ChangeStatus(IN_GAME_STATUS new_status)
+    {
+        current_status = new_status;
+        switch (new_status)
+        {
+            case IN_GAME_STATUS.STARTING:
+                break;
+            case IN_GAME_STATUS.PAUSE:
+                break;
+            case IN_GAME_STATUS.IN_GAME:
+                break;
+            case IN_GAME_STATUS.FINISHING:
+                CheckWinStatus();
+                break;
+            case IN_GAME_STATUS.WINNING:
+                break;
+            case IN_GAME_STATUS.LOSING:
+                break;
+        }
     }
 
 
     public void AddFinishedPlayer(GameObject go)
     {
-        winners.Add(go);
-        go.GetComponent<PlayerController>().current_M_state = Player_M_states.PAUSED;
+        if(!winners.Contains(go))
+        {
+            winners.Add(go);
+            go.GetComponent<PlayerController>().current_M_state = Player_M_states.PAUSED;
+            RemovePlayer(go);
+        }
+
     }
 
     public void AddDeadPlayer(GameObject go)
     {
-        dead_players.Add(go);
-        go.GetComponent<PlayerController>().current_M_state = Player_M_states.PAUSED;
-        go.SetActive(false);
+        if (!dead_players.Contains(go))
+        {
+            dead_players.Add(go);
+            go.GetComponent<PlayerController>().current_M_state = Player_M_states.PAUSED;
+            go.SetActive(false);
+            RemovePlayer(go);
+        }
+    }
+
+    void RemovePlayer(GameObject go)
+    {
+        if(players_in_game.Contains(go))
+        {
+            players_in_game.Remove(go);
+        }
+
+        if(players_in_game.Count < 1)
+        {
+            ChangeStatus(IN_GAME_STATUS.FINISHING);
+        }
+    }
+
+    void CheckWinStatus()
+    {
+        if (winners.Count > 0)
+            ChangeStatus(IN_GAME_STATUS.WINNING);
+        else
+            ChangeStatus(IN_GAME_STATUS.LOSING);
     }
 }

@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour {
 
     float dash_current_cooldown = 0.0f;
     float last_time_pushed = 0.0f;
+    float current_time_pushed = 0f;
+    float time_pushed = 0f;
     public Player_M_states current_M_state;
 
     //Root/stun timers
@@ -122,8 +124,13 @@ public class PlayerController : MonoBehaviour {
                 can_throw_abilities = false;
                 break;
             case Player_M_states.PUSHED:
-                if (body.velocity.magnitude < 20f)
+                vel = body.velocity.normalized + vel;
+                vel = vel.normalized * velocity * Time.deltaTime * slowliness;
+                body.velocity = vel;
+                if (time_pushed < current_time_pushed)
                     current_M_state = Player_M_states.NORMAL;
+                else
+                    current_time_pushed += Time.deltaTime;
                 can_throw_abilities = false;
                 break;
             case Player_M_states.SLEEPED:
@@ -241,6 +248,8 @@ public class PlayerController : MonoBehaviour {
             body.AddForce(direction * 100000 * push_force);
             current_M_state = Player_M_states.PUSHED;
             last_time_pushed = 0.0f;
+            current_time_pushed = 0f;
+            time_pushed = dash_time / 2f;
         }
     }
 
