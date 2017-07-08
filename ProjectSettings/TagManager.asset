@@ -12,6 +12,7 @@ TagManager:
   - SlowBullet
   - FinishZone
   - LevelManager
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Bullets
   - Floor
   - Player_dash
-  - 
+  - Shields
   - 
   - 
   - 

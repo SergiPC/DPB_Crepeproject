@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 1344131876}
   - component: {fileID: 1344131877}
   - component: {fileID: 1344131878}
+  - component: {fileID: 1344131879}
   m_Layer: 8
   m_Name: Krapo_02
   m_TagString: Player
@@ -761,6 +762,7 @@ Transform:
   - {fileID: 691527022}
   - {fileID: 53957696}
   - {fileID: 234616360}
+  - {fileID: 1942126869}
   m_Father: {fileID: 385269202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -901,6 +903,21 @@ MonoBehaviour:
   active_time: 2
   furi_button: 1
   furi_test_button: 99
+--- !u!114 &1344131879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1344131870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81fc0f7c0c1cb74f937110146f853f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 4
+  active_time: 2
+  shield_button: 1
+  shield_test_button: 99
 --- !u!1 &1353127080
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +951,7 @@ MonoBehaviour:
   - {fileID: 1877021268694360, guid: a39ba5952bc84fa43ade00208c55f6ea, type: 2}
   - {fileID: 1529372407057842, guid: 84b15e590a4ca5d48a4e35f9936c5989, type: 2}
   - {fileID: 1037134945438514, guid: 7f64a5f41402a6640974447e13401e67, type: 2}
-  number_of_sections: 1
+  number_of_sections: 5
 --- !u!4 &1353127082
 Transform:
   m_ObjectHideFlags: 0
@@ -1125,3 +1142,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   to_follow: {fileID: 1344131870}
+--- !u!1 &1942126868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1942126869}
+  - component: {fileID: 1942126870}
+  m_Layer: 12
+  m_Name: Shield
+  m_TagString: Shield
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1942126869
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942126868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1344131871}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1942126870
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942126868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25.07
+  m_Center: {x: 0, y: 24.43, z: 0}
