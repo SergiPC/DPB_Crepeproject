@@ -17,7 +17,6 @@ public class SceneGenerator : MonoBehaviour {
         GameObject go = Instantiate(beggining, transform);
 
         x_size = go.GetComponent<Collider>().bounds.size.x;
-        Debug.Log(go.GetComponent<Collider>().bounds.size);
         Vector3 pos = transform.position;
         for(int i = 0; i< number_of_sections; i++)
         {

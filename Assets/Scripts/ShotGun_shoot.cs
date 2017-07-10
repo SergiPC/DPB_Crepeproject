@@ -60,7 +60,7 @@ public class ShotGun_shoot : MonoBehaviour
                 Vector3 new_dir = dir;
                 float cos = Mathf.Cos(new_degrees_of_direction);
                 float sin = Mathf.Sin(new_degrees_of_direction);
-                new_dir.x = dir.x * cos + dir.z * sin;
+                new_dir.x = dir.x * cos - dir.z * sin;
                 new_dir.z = -dir.x * sin + dir.z * cos;
 
                 ShootBullet(new_dir.normalized);

@@ -11,6 +11,7 @@ public class Shield : MonoBehaviour {
     public float active_time = 2f;
     public GamePad.Button shield_button = GamePad.Button.B;
     public KeyCode shield_test_button = KeyCode.C;
+    public float time_to_desactivate = 1f;
     PlayerController player_controller;
     float current_cooldwon = 0f;
     float current_active_time = 0f;
@@ -37,7 +38,17 @@ public class Shield : MonoBehaviour {
             shield.SetActive(false);
 
     }
-
+    void OnCollisionEnter(Collision col)
+    {
+        if (shield_active)
+        {
+            if (col.gameObject.tag != "Player" && col.gameObject.tag != "Untagged" && col.gameObject.tag != "Floor" && col.gameObject.tag != "Shield")
+            {
+                Debug.Log(col.gameObject.tag);
+                Invoke("DeactivateShield", time_to_desactivate);
+            }
+        }
+    }
     void Update()
     {
 
@@ -45,14 +56,14 @@ public class Shield : MonoBehaviour {
         {
             if (active_time <= current_active_time)
             {
-                DeactivateShield();
+                Invoke("DeactivateShield", time_to_desactivate);
             }
             else
             {
                 current_active_time += Time.deltaTime;
                 if (player_controller.current_M_state == Player_M_states.STUNED || player_controller.current_M_state == Player_M_states.SLEEPED)
                 {
-                    DeactivateShield();
+                    Invoke("DeactivateShield", time_to_desactivate);
                 }
             }
 

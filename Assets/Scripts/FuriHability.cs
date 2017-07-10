@@ -65,7 +65,7 @@ public class FuriHability : MonoBehaviour {
                 if (cooldown <= current_cooldwon && player_controller.AbilitiesUp())
                 {
                     if (GamePad.GetButtonDown(furi_button, player_num) || Input.GetKeyDown(furi_test_button))
-                {
+                    {
                         ActivateFuri();
                     }
                 }
