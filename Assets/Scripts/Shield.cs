@@ -38,6 +38,7 @@ public class Shield : MonoBehaviour {
             shield.SetActive(false);
 
     }
+
     void OnCollisionEnter(Collision col)
     {
         if (shield_active)
@@ -49,6 +50,7 @@ public class Shield : MonoBehaviour {
             }
         }
     }
+
     void Update()
     {
 

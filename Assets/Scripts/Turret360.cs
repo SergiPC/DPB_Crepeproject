@@ -28,9 +28,7 @@ public class Turret360 : MonoBehaviour {
                 new_dir.z = -dir.x * sin + dir.z * cos;
 
                 ShootBullet(new_dir.normalized);
-                Debug.Log(new_dir);
                 degrees += 360 / bullet_num;
-                Debug.Log(degrees);
             }
             current_cooldown = 0.0f;
         }
