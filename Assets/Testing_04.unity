@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 691527021}
   - component: {fileID: 691527020}
   - component: {fileID: 691527023}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: furi_hability_wave
   m_TagString: FuriHability
   m_Icon: {fileID: 0}
@@ -590,6 +590,75 @@ SpriteRenderer:
   m_Size: {x: 60, y: 47}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1082964126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1082964127}
+  - component: {fileID: 1082964129}
+  - component: {fileID: 1082964128}
+  m_Layer: 8
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1082964127
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1082964126}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 25, z: -0}
+  m_LocalScale: {x: 100, y: 50, z: 100}
+  m_Children: []
+  m_Father: {fileID: 1942126869}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1082964128
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1082964126}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 18f9eac2e3d2b444488e2ca79f344a25, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1082964129
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1082964126}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1199540156
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +831,7 @@ Transform:
   - {fileID: 691527022}
   - {fileID: 53957696}
   - {fileID: 234616360}
+  - {fileID: 1683898443}
   - {fileID: 1942126869}
   m_Father: {fileID: 385269202}
   m_RootOrder: 0
@@ -830,7 +900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal_shoot_point: {fileID: 53957695}
   player_num: 1
-  velocity: 10000
+  velocity: 11000
   dash_cooldown: 3
   dash_force: 3
   dash_time: 0.3
@@ -914,10 +984,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81fc0f7c0c1cb74f937110146f853f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 4
-  active_time: 2
+  cooldown: 0.25
+  active_time: 0.5
   shield_button: 1
-  shield_test_button: 99
+  shield_test_button: 118
+  time_to_desactivate: 1
 --- !u!1 &1353127080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,12 +1152,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1683898442}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 73.270226, y: 84.210014, z: 37.40219}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -62.32978, y: 42.105007, z: -94.99781}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1344131871}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1683898444
 MonoBehaviour:
@@ -1151,7 +1222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1942126869}
   - component: {fileID: 1942126870}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
@@ -1167,9 +1238,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1082964127}
   m_Father: {fileID: 1344131871}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1942126870
 SphereCollider:
