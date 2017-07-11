@@ -90,6 +90,7 @@ public class ShotGun_shoot : MonoBehaviour
                 if (GamePad.GetButtonDown(shotgun_button, player_num) || Input.GetKeyDown(shotgun_test_shoot_button))
                 {
                     shooting = true;
+                    player_controller.Shoot();
                 }
             }
             else

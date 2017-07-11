@@ -46,11 +46,12 @@ public class PlayerController : MonoBehaviour {
     float time_pushed = 0f;
     public Player_M_states current_M_state;
 
+    float max_vel = 0f;
     //Root/stun timers
     float root_time = 0f;
     float sleep_time = 0f;
     float current_root_time = 0f;
-
+    Animator player_animator = null;
     // Use this for initialization
     void Awake ()
     {
@@ -58,7 +59,17 @@ public class PlayerController : MonoBehaviour {
         curr_col = GetComponent<Collider>();
         shoot_point = horizontal_shoot_point.transform.localPosition;
 	}
-
+    void Start()
+    {
+        foreach(Transform t in transform)
+        {
+            if(t.gameObject.CompareTag("AnimationController"))
+            {
+                player_animator = t.gameObject.GetComponent<Animator>();
+            }
+        }
+        max_vel =  velocity * Time.fixedDeltaTime;
+    }
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.CompareTag("Bullet"))
@@ -115,7 +126,7 @@ public class PlayerController : MonoBehaviour {
         switch(current_M_state)
         {
             case Player_M_states.NORMAL:
-                vel = vel * velocity * Time.deltaTime * slowliness;
+                vel = vel * velocity * Time.fixedDeltaTime * slowliness;
                 body.velocity = vel;
                 can_throw_abilities = true;
                 break;
@@ -125,12 +136,12 @@ public class PlayerController : MonoBehaviour {
                 break;
             case Player_M_states.PUSHED:
                 vel = body.velocity.normalized + vel;
-                vel = vel.normalized * velocity * Time.deltaTime * slowliness;
+                vel = vel.normalized * velocity * Time.fixedDeltaTime * slowliness;
                 body.velocity = vel;
                 if (time_pushed < current_time_pushed)
                     current_M_state = Player_M_states.NORMAL;
                 else
-                    current_time_pushed += Time.deltaTime;
+                    current_time_pushed += Time.fixedDeltaTime;
                 can_throw_abilities = false;
                 break;
             case Player_M_states.SLEEPED:
@@ -163,7 +174,8 @@ public class PlayerController : MonoBehaviour {
         }
         last_time_pushed += Time.fixedDeltaTime;
 
-
+        if(player_animator != null)
+            player_animator.SetFloat("Velocity", vel.magnitude);
     }
 
     void Update()
@@ -233,7 +245,7 @@ public class PlayerController : MonoBehaviour {
             current_root_time += Time.fixedDeltaTime;
         }
 
-        vel = vel * velocity * Time.deltaTime * slowliness;
+        vel = vel * velocity * Time.fixedDeltaTime * slowliness;
         body.velocity = vel;
     }
     void ResetSlowliness()
@@ -315,4 +327,9 @@ public class PlayerController : MonoBehaviour {
         LevelManager.current.AddDeadPlayer(gameObject);
     }
 
+
+    public void Shoot()
+    {
+        player_animator.SetTrigger("Shoot");
+    }
 }
