@@ -330,6 +330,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Shoot()
     {
-        player_animator.SetTrigger("Shoot");
+        if(player_animator!= null)
+            player_animator.SetTrigger("Shoot");
     }
 }
