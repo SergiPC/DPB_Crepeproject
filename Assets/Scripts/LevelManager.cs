@@ -39,12 +39,25 @@ public class LevelManager : MonoBehaviour {
         players_in_game = new List<GameObject>(g);
         dead_players = new List<GameObject>();
         winners = new List<GameObject>();
+        ChangeStatus(IN_GAME_STATUS.IN_GAME);
     }
 
 
     void Update()
     {
 
+        if(current_status == IN_GAME_STATUS.IN_GAME)
+        {
+            float x = players_in_game[0].transform.position.x;
+            foreach (GameObject c in players_in_game)
+            {
+                if (x < c.transform.position.x)
+                {
+                    x = c.transform.position.x;
+                }
+            }
+            Camera.main.GetComponent<FollowCamera>().SetFloat(x);
+        }
     }
 
     public void ChangeStatus(IN_GAME_STATUS new_status)

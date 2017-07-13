@@ -10,10 +10,11 @@ public class FollowCamera : MonoBehaviour {
     float x = 0f;
     float y = 0f;
     float z = 0f;
+
 	// Use this for initialization
 	void Start ()
     {
-        offset = transform.position -  to_follow.transform.position;
+        offset = transform.position - to_follow.transform.position;
         x = transform.position.x;
         y = transform.position.y;
         z = transform.position.z;
@@ -22,9 +23,14 @@ public class FollowCamera : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate ()
     {
-        float t_x = to_follow.transform.position.x + offset.x;
+        float t_x = x + offset.x;
         if (t_x < transform.position.x)
             t_x = transform.position.x;
         transform.position = new Vector3(t_x,y, z);
 	}
+
+    public void SetFloat(float n_x)
+    {
+        x = n_x;
+    }
 }
