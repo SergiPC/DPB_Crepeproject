@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
     string vertical = "Vertical";
     string shoot_bullet = "Fire1";
     float slowliness = 1.0f;
-
+    float speed_boost = 1f;
     float dash_current_cooldown = 0.0f;
     float last_time_pushed = 0.0f;
     float current_time_pushed = 0f;
@@ -52,13 +52,18 @@ public class PlayerController : MonoBehaviour {
     float sleep_time = 0f;
     float current_root_time = 0f;
     Animator player_animator = null;
+    List<float> slow_list;
+    List<float> speed_list;
     // Use this for initialization
     void Awake ()
     {
         body = GetComponent<Rigidbody>();
         curr_col = GetComponent<Collider>();
         shoot_point = horizontal_shoot_point.transform.localPosition;
-	}
+        slow_list = new List<float>();
+        speed_list = new List<float>();
+    }
+
     void Start()
     {
         foreach(Transform t in transform)
@@ -70,14 +75,13 @@ public class PlayerController : MonoBehaviour {
         }
         max_vel =  velocity * Time.fixedDeltaTime;
     }
+
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.CompareTag("Bullet"))
         {
             OnCollisonDestroy c = col.gameObject.GetComponent<OnCollisonDestroy>();
-            slowliness = 1 - c.force;
-            current_M_state = Player_M_states.NORMAL;
-            Invoke("ResetSlowliness", c.slow_time);
+            SlowMe(c.force, c.slow_time);
         }
 
         else if(col.gameObject.CompareTag("ShotGun"))
@@ -123,10 +127,28 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 vel = new Vector3(h, 0, v);
 
-        switch(current_M_state)
+        slowliness = 1f;
+        foreach(float f in slow_list)
+        {
+            if(f< slowliness)
+            {
+                slowliness = f;
+            }
+        }
+
+        speed_boost = 1f;
+        foreach (float f in speed_list)
+        {
+            if (f > speed_boost)
+            {
+                speed_boost = f;
+            }
+        }
+
+        switch (current_M_state)
         {
             case Player_M_states.NORMAL:
-                vel = vel * velocity * Time.fixedDeltaTime * slowliness;
+                vel = vel * velocity * Time.fixedDeltaTime * slowliness * speed_boost;
                 body.velocity = vel;
                 can_throw_abilities = true;
                 break;
@@ -136,7 +158,7 @@ public class PlayerController : MonoBehaviour {
                 break;
             case Player_M_states.PUSHED:
                 vel = body.velocity.normalized + vel;
-                vel = vel.normalized * velocity * Time.fixedDeltaTime * slowliness;
+                vel = vel.normalized * velocity * Time.fixedDeltaTime * slowliness * speed_boost;
                 body.velocity = vel;
                 if (time_pushed < current_time_pushed)
                     current_M_state = Player_M_states.NORMAL;
@@ -188,6 +210,7 @@ public class PlayerController : MonoBehaviour {
                 current_M_state = Player_M_states.DASHING;
                 curr_col.enabled = false;
                 dash_current_cooldown = 0.0f;
+                    
             }
         }
         else if(current_M_state == Player_M_states.NORMAL)
@@ -248,11 +271,21 @@ public class PlayerController : MonoBehaviour {
         vel = vel * velocity * Time.fixedDeltaTime * slowliness;
         body.velocity = vel;
     }
-    void ResetSlowliness()
+
+    void RemoveSlow(float slow)
     {
-        slowliness = 1.0f;
+        slow_list.Remove(slow);
     }
 
+    void RemoveSpeed(float speed)
+    {
+        speed_list.Remove(speed);
+    }
+
+    void ResetSlowliness()
+    {
+        slow_list.Clear();
+    }
     public void PushMe(Vector3 direction,int push_force)
     {
         if(last_time_pushed > 0.2f)
@@ -282,15 +315,18 @@ public class PlayerController : MonoBehaviour {
         if(current_M_state == Player_M_states.NORMAL)
         {
             float new_slowliness = 1 - slow;
-            if (slowliness < new_slowliness)
-            {
-                Invoke("ResetSlowliness", time_slowed);
-            }
-            else
-            {
-                slowliness = new_slowliness;
-                Invoke("ResetSlowliness", time_slowed);
-            }
+            slow_list.Add(new_slowliness);  
+            StartCoroutine(CustomSlowInvoke(new_slowliness, time_slowed));
+        }
+    }
+
+    public void SpeedMe(float speed, float time_boost)
+    {
+        if (current_M_state == Player_M_states.NORMAL)
+        {
+            float new_speed = 1 + speed;
+            speed_list.Add(new_speed);
+            StartCoroutine(CustomSpeedInvoke(new_speed, time_boost));
         }
     }
 
@@ -332,5 +368,17 @@ public class PlayerController : MonoBehaviour {
     {
         if(player_animator!= null)
             player_animator.SetTrigger("Shoot");
+    }
+
+    IEnumerator CustomSlowInvoke(float slow, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        RemoveSlow(slow);
+    }
+
+    IEnumerator CustomSpeedInvoke(float slow, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        RemoveSpeed(slow);
     }
 }

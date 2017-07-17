@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 231170348}
   - component: {fileID: 231170347}
   - component: {fileID: 231170346}
+  - component: {fileID: 231170350}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -342,6 +343,18 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &231170350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231170344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96949830912354c4ca881454d13929bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  to_follow: {fileID: 1344131870}
 --- !u!1 &234616359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1203,8 @@ MonoBehaviour:
   - {fileID: 1877021268694360, guid: a39ba5952bc84fa43ade00208c55f6ea, type: 2}
   - {fileID: 1529372407057842, guid: 84b15e590a4ca5d48a4e35f9936c5989, type: 2}
   - {fileID: 1037134945438514, guid: 7f64a5f41402a6640974447e13401e67, type: 2}
-  number_of_sections: 5
+  - {fileID: 1733528237789456, guid: 4c6796b7078bb094d8b8231b44ec48dc, type: 2}
+  number_of_sections: 10
 --- !u!4 &1353127082
 Transform:
   m_ObjectHideFlags: 0
@@ -1347,7 +1361,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1913038454}
-  - component: {fileID: 1913038455}
   m_Layer: 0
   m_Name: Cam_Ortho_Daddy
   m_TagString: Untagged
@@ -1369,18 +1382,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1913038455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1913038453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96949830912354c4ca881454d13929bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  to_follow: {fileID: 1344131870}
 --- !u!4 &1942126869 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4326962620018798, guid: 87360f1ea6a630a4192322da53f631b7,
