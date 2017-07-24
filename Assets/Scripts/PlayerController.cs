@@ -157,8 +157,8 @@ public class PlayerController : MonoBehaviour {
                 can_throw_abilities = false;
                 break;
             case Player_M_states.PUSHED:
-                vel = body.velocity.normalized + vel;
-                vel = vel.normalized * velocity * Time.fixedDeltaTime * slowliness * speed_boost;
+                vel = body.velocity.normalized;
+                vel = vel.normalized * velocity * Time.fixedDeltaTime;
                 body.velocity = vel;
                 if (time_pushed < current_time_pushed)
                     current_M_state = Player_M_states.NORMAL;

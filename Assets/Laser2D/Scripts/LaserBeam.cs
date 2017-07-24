@@ -136,6 +136,7 @@ public class LaserBeam : MonoBehaviour {
                         Vector3 direction = hit.collider.transform.position;
                         direction.y = 0;
                         direction -= transform.position;
+                        direction.z = 0;
                         hit.collider.gameObject.GetComponent<PlayerController>().PushMe(direction, (int)slow_effect);
                     }
                 }
