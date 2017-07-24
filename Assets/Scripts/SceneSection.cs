@@ -45,7 +45,7 @@ public class SceneSection : MonoBehaviour {
             Debug.Log("IM IN THE FIRST FOR");
             if (t.CompareTag("section_elements"))
             {
-                Debug.Log("IM COMPARING TAG");
+
                 ElementInScene eis = t.GetComponent<ElementInScene>();
                 if (eis != null)
                 {
@@ -59,7 +59,6 @@ public class SceneSection : MonoBehaviour {
          
           foreach (ElementInScene eis in section_elements)
           {
-              Debug.Log("IM HERE");
               bool instantiated = false;
               while(!instantiated)
               {
@@ -73,6 +72,8 @@ public class SceneSection : MonoBehaviour {
                       e_tmp = element_prefabs[x].GetComponent<Element>();
                   }
 
+                if (e_tmp.rank <= rank)
+                {
                   if(e_tmp.type != Element_types.EMPTY)
                   {
                       Debug.Log("IM ABOUT TO CREATE A THING");
@@ -83,28 +84,32 @@ public class SceneSection : MonoBehaviour {
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
-                              break;
+                                current_turrets++;
+                            }
+                            break;
                           case Element_types.AREA_SHOOT_TURRET:
                               if (current_turrets < max_turrets)
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
-                              break;
+                                current_turrets++;
+                            }
+                            break;
                           case Element_types.WAVE_TURRET:
                               if (current_turrets < max_turrets)
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
-                              break;
+                                current_turrets++;
+                            }
+                            break;
                           case Element_types.BLUE_LASER:
                               if (current_lasers < max_lasers)
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
+                                current_lasers++;
+                            }
                               break;
                           case Element_types.RED_LASER:
                               if (current_lasers < max_lasers)
@@ -118,6 +123,7 @@ public class SceneSection : MonoBehaviour {
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
+                                current_spikes++;
                               }
                               break;
                           case Element_types.TRAP_THAT_TRAPS:
@@ -125,13 +131,15 @@ public class SceneSection : MonoBehaviour {
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
+                                current_spikes++;
+                            }
                               break;
                           case Element_types.SPEED_UP:
                               if (current_boost_zones < max_boost_zones)
                               {
-                                  GenerateElement(e_tmp.gameObject, eis.transform);
-                                  instantiated = true;
+                                GenerateElement(e_tmp.gameObject, eis.transform);
+                                instantiated = true;
+                                current_boost_zones++;
                               }
                               break;
                           case Element_types.SHIELD:
@@ -139,21 +147,24 @@ public class SceneSection : MonoBehaviour {
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
+                                current_boost_zones++;
+                             }
                               break;
                           case Element_types.MINI_RELOAD:
                               if (current_boost_zones < max_boost_zones)
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
+                                current_boost_zones++;
+                            }
                               break;
                           case Element_types.LESS_COST:
                               if (current_boost_zones < max_boost_zones)
                               {
                                   GenerateElement(e_tmp.gameObject, eis.transform);
                                   instantiated = true;
-                              }
+                                current_boost_zones++;
+                            }
                               break;
                        }
                   }
@@ -162,7 +173,8 @@ public class SceneSection : MonoBehaviour {
                       Debug.Log("Empty Spot");
                       instantiated = true;
                   }
-              }
+                }
+            }
           }
     }
 

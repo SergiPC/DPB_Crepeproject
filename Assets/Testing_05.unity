@@ -1201,7 +1201,7 @@ MonoBehaviour:
   ending: {fileID: 1965614715014676, guid: 8fb5c204353e1354498a5edb80cd5f53, type: 2}
   scene_parts:
   - {fileID: 1712362248180886, guid: 83eddd2ec3e04d34985084b44358591a, type: 2}
-  number_of_sections: 4
+  number_of_sections: 10
 --- !u!4 &1353127082
 Transform:
   m_ObjectHideFlags: 0
