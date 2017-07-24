@@ -37,6 +37,9 @@ public class LaserBeam : MonoBehaviour {
     [Tooltip("The time that the duration lasts on the player")]
     public float time_slowed = 1f;
 
+    [Tooltip("Blue laser false means red laser")]
+    public bool blue_laser = false;
+
     private bool laserOn = false; // switching variable 
 
 	private LineRenderer lineRenderer; 
@@ -126,8 +129,15 @@ public class LaserBeam : MonoBehaviour {
 
                 // give enemy damage
                 if (hit.collider.tag == "Player") {
-                    hit.collider.gameObject.GetComponent<PlayerController>().SlowMe(slow_effect, time_slowed);
-                    //theEnemy.giveDamage(laserDamage);
+                    if(blue_laser)
+                        hit.collider.gameObject.GetComponent<PlayerController>().SlowMe(slow_effect, time_slowed);
+                    else
+                    {
+                        Vector3 direction = hit.collider.transform.position;
+                        direction.y = 0;
+                        direction -= transform.position;
+                        hit.collider.gameObject.GetComponent<PlayerController>().PushMe(direction, (int)slow_effect);
+                    }
                 }
 
             }
