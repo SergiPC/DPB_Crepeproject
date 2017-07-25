@@ -840,7 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368891673aeeb514da17aa5d5a3f8d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 4
+  type: 3
   rank: 1
 --- !u!114 &114848457711655908
 MonoBehaviour:
@@ -865,8 +865,9 @@ MonoBehaviour:
   laserDamage: 5
   rayDuration: 2.5
   laserGlow: {fileID: 4390309578912398}
-  slow_effect: 0.8
+  slow_effect: 15
   time_slowed: 1
+  blue_laser: 0
 --- !u!120 &120008359085324350
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -957,6 +958,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 1
     textureMode: 0
+    generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!212 &212026595691088686
@@ -999,6 +1001,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212601684131662836
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1039,6 +1043,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212609208170657260
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1079,6 +1085,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212641900578536398
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1119,6 +1127,8 @@ SpriteRenderer:
   m_Size: {x: 1.24, y: 1.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212720914989363438
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1159,6 +1169,8 @@ SpriteRenderer:
   m_Size: {x: 1.24, y: 1.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212973733683556872
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1199,6 +1211,8 @@ SpriteRenderer:
   m_Size: {x: 1.24, y: 1.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212984798718480456
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1239,3 +1253,5 @@ SpriteRenderer:
   m_Size: {x: 1.24, y: 1.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
