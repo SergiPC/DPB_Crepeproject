@@ -57,6 +57,7 @@ public class NormalShoot : MonoBehaviour {
 
     void ShootBullet(Vector3 dir)
     {
+        player_controller.Shoot();
         di_x = player_controller.GetDirection_x();
         di_z = player_controller.GetDirection_z();
 

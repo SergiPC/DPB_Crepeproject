@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour {
             direction.y = 0;
             direction -= transform.position;
             float force = col.gameObject.GetComponent<OnCollisonDestroy>().force;
-            PushMe(-direction.normalized, (int)force);
+            PushMe(-direction.normalized, (int)force, col.gameObject.GetComponent<OnCollisonDestroy>().slow_time);
         }
 
         else if (col.gameObject.CompareTag("SlowBullet"))
@@ -157,9 +157,6 @@ public class PlayerController : MonoBehaviour {
                 can_throw_abilities = false;
                 break;
             case Player_M_states.PUSHED:
-                vel = body.velocity.normalized;
-                vel = vel.normalized * velocity * Time.fixedDeltaTime;
-                body.velocity = vel;
                 if (time_pushed < current_time_pushed)
                     current_M_state = Player_M_states.NORMAL;
                 else
@@ -192,7 +189,6 @@ public class PlayerController : MonoBehaviour {
             case Player_M_states.PAUSED:
                 can_throw_abilities = false;
                 break;
-
         }
         last_time_pushed += Time.fixedDeltaTime;
 
@@ -286,15 +282,15 @@ public class PlayerController : MonoBehaviour {
     {
         slow_list.Clear();
     }
-    public void PushMe(Vector3 direction,int push_force)
+    public void PushMe(Vector3 direction,int push_force,float push_time)
     {
         if(last_time_pushed > 0.2f)
         {
-            body.AddForce(direction * 100000 * push_force);
+            body.AddForce(direction * velocity * push_force);
             current_M_state = Player_M_states.PUSHED;
             last_time_pushed = 0.0f;
             current_time_pushed = 0f;
-            time_pushed = dash_time / 2f;
+            time_pushed = push_time;
         }
     }
 

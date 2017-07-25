@@ -57,6 +57,7 @@ public class ShotGun_shoot : MonoBehaviour
 
                 float new_degrees_of_direction = Random.Range(-degrees_of_direction, degrees_of_direction);
                 new_degrees_of_direction *= Mathf.Deg2Rad;
+
                 Vector3 new_dir = dir;
                 float cos = Mathf.Cos(new_degrees_of_direction);
                 float sin = Mathf.Sin(new_degrees_of_direction);

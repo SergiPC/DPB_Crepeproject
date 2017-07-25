@@ -7,7 +7,7 @@ public class TurretWave : MonoBehaviour {
     public float cooldown = 4f;
     public float active_time = 2f;
     public int force = 15;
-
+    public float push_time = 0.6f;
     float current_cooldwon = 0f;
     float current_active_time = 0f;
 
@@ -29,7 +29,7 @@ public class TurretWave : MonoBehaviour {
             Vector3 direction = c.transform.position;
             direction.y = 0;
             direction -= transform.position;
-            c.gameObject.GetComponent<PlayerController>().PushMe(direction, force);
+            c.gameObject.GetComponent<PlayerController>().PushMe(direction, force, push_time);
         }
     }
 

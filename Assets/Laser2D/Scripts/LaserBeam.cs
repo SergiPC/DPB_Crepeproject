@@ -128,7 +128,8 @@ public class LaserBeam : MonoBehaviour {
                 }
 
                 // give enemy damage
-                if (hit.collider.tag == "Player") {
+                if (hit.collider.tag == "Player")
+                {
                     if(blue_laser)
                         hit.collider.gameObject.GetComponent<PlayerController>().SlowMe(slow_effect, time_slowed);
                     else
@@ -137,7 +138,7 @@ public class LaserBeam : MonoBehaviour {
                         direction.y = 0;
                         direction -= transform.position;
                         direction.z = 0;
-                        hit.collider.gameObject.GetComponent<PlayerController>().PushMe(direction, (int)slow_effect);
+                        hit.collider.gameObject.GetComponent<PlayerController>().PushMe(direction, (int)slow_effect,0.6f);
                     }
                 }
 
