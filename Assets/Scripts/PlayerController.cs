@@ -15,6 +15,13 @@ public enum Player_M_states
     PAUSED
 }
 
+public enum CHARGES_END
+{
+    NOT_ENOUGH,
+    ENOUGH,
+    ACTIVATE_PASIVE
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
@@ -28,6 +35,10 @@ public class PlayerController : MonoBehaviour {
     public LayerMask dash_mask;
     public GamePad.Button dash_button = GamePad.Button.X;
     public KeyCode dash_test_button = KeyCode.Z;
+    public GamePad.Button recharge_button = GamePad.Button.RightShoulder;
+    public KeyCode recharge_test_button = KeyCode.R;
+    public int max_charges = 8;
+    public float charges_reload_time = 2f;
     bool can_throw_abilities = true;
     Rigidbody body;
 
@@ -45,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     float current_time_pushed = 0f;
     float time_pushed = 0f;
     public Player_M_states current_M_state;
-
+    int current_charges = 0;
     float max_vel = 0f;
     //Root/stun timers
     float root_time = 0f;
@@ -57,6 +68,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
+        current_charges = max_charges;
         body = GetComponent<Rigidbody>();
         curr_col = GetComponent<Collider>();
         shoot_point = horizontal_shoot_point.transform.localPosition;
@@ -211,6 +223,12 @@ public class PlayerController : MonoBehaviour {
         }
         else if(current_M_state == Player_M_states.NORMAL)
             dash_current_cooldown += Time.deltaTime;
+
+        if (GamePad.GetButtonDown(recharge_button, player_num) || Input.GetKeyDown(recharge_test_button))
+        {
+            Invoke("RechargeCharges", charges_reload_time);
+        }
+
     }
 
     void Dash(Vector3 dir)
@@ -359,6 +377,29 @@ public class PlayerController : MonoBehaviour {
         LevelManager.current.AddDeadPlayer(gameObject);
     }
 
+    public CHARGES_END SpendCharges(int amount)
+    {
+        if(amount == current_charges)
+        {
+            current_charges -= amount;
+            Invoke("RechargeCharges", charges_reload_time);
+            return CHARGES_END.ACTIVATE_PASIVE;
+        }
+        else if( amount > current_charges)
+        {
+            current_charges -= amount;
+            return CHARGES_END.ENOUGH;
+        }
+        else
+        {
+            return CHARGES_END.NOT_ENOUGH;
+        }
+    }
+
+    void RechargeCharges()
+    {
+        current_charges = max_charges;
+    }
 
     public void Shoot()
     {

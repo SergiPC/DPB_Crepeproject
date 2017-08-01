@@ -750,6 +750,10 @@ MonoBehaviour:
     m_Bits: 1
   dash_button: 3
   dash_test_button: 122
+  recharge_button: 4
+  recharge_test_button: 114
+  max_charges: 8
+  charges_reload_time: 2
   current_M_state: 0
 --- !u!114 &1037015305
 MonoBehaviour:
@@ -1014,6 +1018,10 @@ MonoBehaviour:
     m_Bits: 1
   dash_button: 3
   dash_test_button: 122
+  recharge_button: 4
+  recharge_test_button: 114
+  max_charges: 8
+  charges_reload_time: 2
   current_M_state: 0
 --- !u!114 &1199540161
 MonoBehaviour:
@@ -1183,6 +1191,10 @@ MonoBehaviour:
     m_Bits: 1
   dash_button: 3
   dash_test_button: 122
+  recharge_button: 4
+  recharge_test_button: 114
+  max_charges: 8
+  charges_reload_time: 2
   current_M_state: 0
 --- !u!54 &1344131875
 Rigidbody:
